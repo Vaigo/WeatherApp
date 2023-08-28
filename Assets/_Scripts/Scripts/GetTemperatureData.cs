@@ -9,6 +9,8 @@ public class GetTemperatureData : MonoBehaviour
 {
     #region Private Variables
     [SerializeField]
+    private TMP_Text m_simpleTxt;  // displaying temperature
+    [SerializeField]
     private TMP_Text m_temperatureTxt;  // displaying temperature
 
     [SerializeField]
@@ -42,18 +44,21 @@ public class GetTemperatureData : MonoBehaviour
                     {
                         int currentTemperature = (int)response.daily.temperature_2m_max[0];  // Get today's temperature
                         Debug.Log($"Day temp: Temperature = {currentTemperature:F1}°C");
-                        m_temperatureTxt.text = $"Day temp: Temperature = {currentTemperature:F1}°C";  // Update UI text
+                        m_simpleTxt.text = "Today Temperature";  // Update UI text
+                        m_temperatureTxt.text= $"{currentTemperature}°C";
+
+
                     }
                     else
                     {
                         Debug.LogError("No temperature data found in the response.");
-                        m_temperatureTxt.text = "No temperature data found in the response.";  // Update UI text
+                        m_simpleTxt.text = "No temperature data found in the response.";  // Update UI text
                     }
                 }
                 else
                 {
                     Debug.LogError("Failed to deserialize response.");
-                    m_temperatureTxt.text = "Failed to deserialize response.";  // Update UI text
+                    m_simpleTxt.text = "Failed to deserialize response.";  // Update UI text
                 }
             }
             else
